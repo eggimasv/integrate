@@ -209,11 +209,16 @@ selections = {
     1: [range(i * 24 - 2, i * 24) for i in range(1, dr_of_day + 1)],
 
     # Typical days
-    2: [range(47, 72), range(119, 144), range(191, 216)]
+    2: [range(47, 72), range(119, 144), range(191, 216)],
+
+    # Peak
+    3: [range(71, 95)]
+
 }
 
-for plot_nr in range(1, 3):
-    plt.subplot(2, 1, plot_nr)
+for plot_nr in range(1, 4):
+    print("plot_nr: " + str(plot_nr))
+    plt.subplot(3, 1, plot_nr)
 
     # ----------------------------------
     # ACROSS THE WHOLE SIMULATION PERIOD
@@ -235,7 +240,7 @@ for plot_nr in range(1, 3):
         plt.fill_between(x_selection, y_selection, facecolor='red', alpha=0.5)
 
     # Cut window
-    plt.xlim(selection_start, selection_end-1)
+    plt.xlim(0, selection_end-1)
     plt.ylim(0, 55)
 
     # Remove ticks and labl
