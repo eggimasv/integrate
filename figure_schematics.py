@@ -195,29 +195,41 @@ print("Lenth of dataframe: " + str(len(df)))
 # ----------------------------------
 # ACROSS THE WHOLE SIMULATION PERIOD
 # ----------------------------------
-x_values = df.index
-y_values = df['demand']
+selection_start = 0
+selection_end = 1200 # 50 days
+
+x_values_all = np.array(df.index)
+y_values_all = np.array(df['demand'])
+
+x_values = x_values_all[list(range(selection_start, selection_end))]
+y_values = y_values_all[list(range(selection_start, selection_end))]
 
 '''plt.plot(
     x_values,
     y_values,
     color='grey')'''
 
-plt.xlim(0, 8760)
-plt.ylim(20, 60)
-
-# Fill below line
+# Fill below line #https://stackoverflow.com/questions/16417496/matplotlib-fill-between-multiple-lines
 plt.fill_between(x_values, y_values, facecolor='grey', alpha=0.5)
 
-
+#plt.show()
 
 # ----------------------------------
-# Selection
+# Selection moving window
 # ----------------------------------
-x_selection = list(range(100, 200))
-y_selection = y_values[x_selection]
+ #[i * 24 for i in range(30)] #list(range(100, 120)) + list(range(100, 120))
+selections = [
+    list(range(10, 20)),
+    list(range(130, 140))]
 
-plt.fill_between(x_selection, y_selection, facecolor='red', alpha=0.5)
+for x_selection in selections:
+    y_selection = y_values_all[x_selection]
+
+    plt.fill_between(x_selection, y_selection, facecolor='red', alpha=0.5)
+
+    # Cut window
+    plt.xlim(selection_start, selection_end)
+    plt.ylim(20, 55)
 
 plt.show()
 
